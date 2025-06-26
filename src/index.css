@@ -1,0 +1,131 @@
+ /* App.css ya index.css me add karein */
+/* index.css or global.css */
+html {
+  scroll-behavior: smooth;
+}
+body, html {
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box;
+}
+ 
+ /* Default: no padding-left */
+ .custom-pl-lg {
+   padding-left: 0;
+ }
+
+ /* Medium screen and up (≥768px) */
+ @media (min-width: 768px) {
+   .custom-pl-lg {
+     padding-left: 30rem;
+   }
+ }
+
+ /* Large screen and up (≥992px) */
+ @media (min-width: 992px) {
+   .custom-pl-lg {
+     padding-left: 58rem;
+   }
+ }
+
+ .TGreen {
+   background-color: #94b43c;
+   color: white;
+ }
+
+ .navbar {
+   background-color: #94b43c;
+ }
+
+ .text-TGreen {
+   color: #94b43c;
+ }
+
+ .custom-shadow {
+   filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.8));
+ }
+
+ .footer-alt {
+   border-top: none;
+ }
+
+ .bg-home2 {
+   background-color: rgb(148 180 60 / 15%);
+ }
+
+ .popu-category-box .popu-category-icon {
+   background-color: rgb(239 244 226);
+ }
+
+ .opacity-50 {
+   opacity: 0.2 !important;
+ }
+
+ /* Marquee */
+ .scroll-box {
+   height: 250px;
+   overflow: hidden;
+   position: relative;
+ }
+
+ .scroll-content {
+   display: inline-block;
+   animation: scrollUp 10s linear infinite;
+ }
+
+ .scroll-inner {
+   display: flex;
+   flex-direction: column;
+ }
+
+ @keyframes scrollUp {
+   0% {
+     transform: translateY(0);
+   }
+
+   100% {
+     transform: translateY(-50%);
+   }
+ }
+
+
+ /* Home End */
+
+ /* About Css */
+ .page-title-box {
+   background-color: #7d9c29;
+ }
+
+ .accordion-button:not(.collapsed) {
+   background-color: rgb(239 244 226);
+ }
+
+ /* header */
+ @media (min-width: 992px) {
+   .custom-pl-lg {
+     padding-left: 43rem;
+   }
+ }
+
+ /* footer */
+ .bg-footer {
+   background-color: black;
+ }
+
+ .footer-alt {
+   background: #0e0f0c;
+
+ }
+
+ /* candidate */
+
+ .border-primary {
+   border-color: #94b43c !important;
+ }
+
+ .bg-TGreenLow {
+   background-color: #94b43c52;
+ }
+
+
+

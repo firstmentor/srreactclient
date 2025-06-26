@@ -1,0 +1,23 @@
+
+/* index.css or global.css */
+body, html {
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+  }
+/* App.css */
+.btn-primary {
+    background-color: #82c639;
+    border-color: #82c639;
+  }
+  
+  .btn-primary:hover {
+    background-color: #6aae2d;
+    border-color: #6aae2d;
+  }
+  
+  .text-brand {
+    color: #82c639;
+  }
+  
+  
