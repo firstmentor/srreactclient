@@ -4,8 +4,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const adminApi = createApi({
   reducerPath: 'adminApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:4000/api',
-    credentials: 'include', // ✅ for cookies
+    baseUrl: 'https://srwebconsultancy.in/api', // 🔁 LIVE URL
+    credentials: 'include', // ✅ cookies भेजने के लिए जरूरी
   }),
   tagTypes: ['Admin'],
   endpoints: (builder) => ({
