@@ -81,7 +81,7 @@ const AdminDashboard = () => {
                     <td>{app.designation}</td>
                     <td>
                       <a
-                        href={`http://localhost:4000${app.resumeUrl}`}
+                        href={`https://server-y0fc.onrender.com${app.resumeUrl}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn btn-sm btn-primary"

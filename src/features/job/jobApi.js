@@ -36,4 +36,5 @@ export const {
   useGetApplicationsQuery,
   useUpdateApplicationStatusMutation,
   useDeleteApplicationMutation
+  
 } = jobApi;

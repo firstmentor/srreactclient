@@ -44,7 +44,7 @@ function AdminrResume() {
       Email: app.email,
       Phone: app.phone,
       Designation: app.designation,
-      Resume: `https://srwebconsultancy.in${app.resumeUrl}`,
+      Resume: `https://server-y0fc.onrender.com${app.resumeUrl}`,
       Status: app.status || '',
       Comment: app.comment || '',
       Date: new Date(app.createdAt).toLocaleString(),
@@ -65,7 +65,7 @@ function AdminrResume() {
       app.email,
       app.phone,
       app.designation,
-      `https://srwebconsultancy.in${app.resumeUrl}`,
+      `https://server-y0fc.onrender.com${app.resumeUrl}`,
       app.status || '',
       app.comment || '',
       new Date(app.createdAt).toLocaleString()
@@ -175,7 +175,7 @@ function AdminrResume() {
                       <td>{app.designation}</td>
                       <td>
                         <a
-                          href={`https://srwebconsultancy.in${app.resumeUrl}`}
+                          href={`https://server-y0fc.onrender.com${app.resumeUrl}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="btn btn-sm btn-primary"
