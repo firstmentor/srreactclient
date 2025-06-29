@@ -68,7 +68,7 @@ const PostYourResume = () => {
   
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-      toast.error("❌ Please fix validation errors");
+      toast.error("❌ Please fix validation errors",{ autoClose: 2000 });
       return;
     }
   
@@ -82,7 +82,7 @@ const PostYourResume = () => {
   
     try {
       const res = await applyJob(form).unwrap();
-      toast.success("✅ Application submitted successfully!");
+      toast.success("✅ Application submitted successfully!",{ autoClose: 2000 });
   
       // ✅ Reset form
       setFormData({ name: "", email: "", phone: "", designation: "" });
@@ -90,7 +90,7 @@ const PostYourResume = () => {
       setErrors({});
       e.target.reset();
     } catch (err) {
-      toast.error("❌ Submission failed!");
+      toast.error("❌ Submission failed!",{ autoClose: 2000 });
       console.error(err);
     }
   };
@@ -167,7 +167,6 @@ const PostYourResume = () => {
         </button>
       </form>
 
-      <ToastContainer position="top-center" autoClose={2000} />
     </>
   );
 };
