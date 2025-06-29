@@ -22,6 +22,7 @@ import bannerVideo from "/src/assets/video/banner.mp4";
 import processImg from "/src/assets/images/process-01.png";
 import processImg2 from "/src/assets/images/process-02.png";
 import processImg3 from "/src/assets/images/process-03.png";
+import PostYourResume from "./PostYourResume";
 
 function Home() {
   return (
@@ -426,36 +427,7 @@ function Home() {
                   <h5 className="TGreen text-white text-center py-2">
                     Post Your Resume
                   </h5>
-                  <form>
-                    <input
-                      type="text"
-                      placeholder="Enter Your Name"
-                      className="form-control my-2"
-                    />
-                    <input
-                      type="email"
-                      placeholder="Enter Your Email Address"
-                      className="form-control my-2"
-                    />
-                    <input
-                      type="text"
-                      placeholder="+91 0000000000"
-                      className="form-control my-2"
-                    />
-                    <textarea
-                      placeholder="Designation"
-                      className="form-control my-2"
-                      rows="2"
-                    ></textarea>
-                    <input type="file" className="form-control my-2" />
-
-                    <div className="d-flex justify-content-between mt-3">
-                      <button className="btn TGreen">Submit</button>
-                      <button type="reset" className="btn btn-outline-success">
-                        Reset
-                      </button>
-                    </div>
-                  </form>
+                  <PostYourResume/>
                 </div>
               </div>
             </div>

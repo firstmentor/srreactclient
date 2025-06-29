@@ -1,6 +1,8 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import ScrollToTop from './component/ScrollToTop';
+import { ToastContainer } from 'react-toastify'; // ✅ Toast Import
+import 'react-toastify/dist/ReactToastify.css';  // ✅ Toast CSS
 
 // Layouts
 import MainLayout from './component/MainLayout';
@@ -18,6 +20,7 @@ import Candidate from './component/Candidate';
 import CVForm from './component/CVForm';
 import AdminDashboard from './component/admin/AdminDashboard';
 import ManageJobs from './component/admin/ManageJobs';
+import AdminrResume from './component/admin/AdminrResume';
 
 const App = () => {
   return (
@@ -39,8 +42,12 @@ const App = () => {
         <Route element={<AdminLayout />}>
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/jobs" element={<ManageJobs />} />
+          <Route path="/admin/resume" element={<AdminrResume />} />
         </Route>
       </Routes>
+
+      {/* ✅ Toast Container added here */}
+      <ToastContainer position="top-right" autoClose={2000} />
     </>
   );
 };

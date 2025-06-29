@@ -66,7 +66,7 @@ function Footer() {
                             <div className="row">
                                 <div className="col-lg-12">
                                     <p className="text-white text-center mb-0">
-                                        Copyright © 2025-2026 | <Link to={'https://pninfosys.com/'} className='text-white' >PN INFOSYS IT COMPANY IN GWALIOR</Link> ! . All rights reserved.
+                                        Copyright © 2025-2026 | <Link to={'https://srwebconsultancy.in'} className='text-white' >SR Web Consultancy Services</Link> ! . All rights reserved.
                                     </p>
                                 </div>
                                 {/* <!--end col--> */}

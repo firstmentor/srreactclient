@@ -7,12 +7,10 @@ const Footer = () => {
       <div className="container-fluid">
         <div className="row">
           <div className="col-sm-6">
-            <span>&copy; {new Date().getFullYear()} <strong className="text-success">SR Web Services</strong>. All rights reserved.</span>
+            <span>&copy; {new Date().getFullYear()} <strong className="text-success">SR | Web Consultancy Servicess</strong>. All rights reserved.</span>
           </div>
           <div className="col-sm-6 text-sm-end">
-            <span>
-              Designed by <a href="https://htmlcodex.com" className="text-success">HTML Codex</a>, Customized by <span className="text-success">You 😎</span>
-            </span>
+           
           </div>
         </div>
       </div>

@@ -3,6 +3,10 @@
 html {
   scroll-behavior: smooth;
 }
+.sidebar-scroll {
+  height: 100vh;
+  overflow-y: auto;
+}
 body, html {
   margin: 0 !important;
   padding: 0 !important;
