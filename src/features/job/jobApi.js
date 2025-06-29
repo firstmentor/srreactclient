@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const jobApi = createApi({
   reducerPath: 'jobApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/api/' }), // change if needed
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://server-y0fc.onrender.com/api/' }), // change if needed
   endpoints: (builder) => ({
     applyJob: builder.mutation({
       query: (formData) => ({

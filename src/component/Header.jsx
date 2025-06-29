@@ -49,6 +49,9 @@ function Header() {
               <li className="nav-item">
                 <Link to="/contact" className="nav-link" onClick={handleNavLinkClick}>Contact</Link>
               </li>
+              <li className="nav-item">
+                <Link to="/admin/login" className="nav-link" onClick={handleNavLinkClick}>Login</Link>
+              </li>
             </ul>
           </div>
         </div>

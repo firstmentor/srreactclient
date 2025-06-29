@@ -21,6 +21,9 @@ import CVForm from './component/CVForm';
 import AdminDashboard from './component/admin/AdminDashboard';
 import ManageJobs from './component/admin/ManageJobs';
 import AdminrResume from './component/admin/AdminrResume';
+import AdminPrivateRoute from './component/admin/AdminPrivateRoute';
+import AdminLogin from './component/admin/AdminLogin';
+
 
 const App = () => {
   return (
@@ -39,7 +42,10 @@ const App = () => {
           <Route path="/cvform" element={<CVForm />} />
         </Route>
 
-        <Route element={<AdminLayout />}>
+
+        <Route path="/admin/login" element={<AdminLogin />} />
+
+        <Route element={<AdminPrivateRoute><AdminLayout /></AdminPrivateRoute>}>
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/jobs" element={<ManageJobs />} />
           <Route path="/admin/resume" element={<AdminrResume />} />

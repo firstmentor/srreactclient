@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'animate.css';
+import LogoutButton from './LogoutButton';
 
 const Sidebar = () => {
   const [openMenu, setOpenMenu] = useState(null);
@@ -68,7 +69,7 @@ const Sidebar = () => {
         </li>
         <li className="nav-item mt-3 border-top pt-3">
           <Link to="/logout" className="nav-link text-white fw-semibold">
-            <i className="fas fa-sign-out-alt me-2"></i> Logout
+           <LogoutButton /> 
           </Link>
         </li>
       </ul>
