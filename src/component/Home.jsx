@@ -23,6 +23,8 @@ import processImg from "/src/assets/images/process-01.png";
 import processImg2 from "/src/assets/images/process-02.png";
 import processImg3 from "/src/assets/images/process-03.png";
 import PostYourResume from "./PostYourResume";
+import PostYourRequirement from "./PostYourRequirement";
+import CurrentOpenings from "./ CurrentOpenings";
 
 function Home() {
   return (
@@ -81,15 +83,16 @@ function Home() {
 
     {/* Right Form */}
     <div className="bg-white text-dark rounded-4 p-4 shadow-lg w-100" style={{ maxWidth: '360px' }}>
-      <h5 className="fw-semibold mb-3 text-center text-lg-start">Job Search</h5>
-      <form className="d-flex flex-column gap-3">
+      <h5 className="fw-semibold mb-3 text-center text-lg-start">Post Your Resume</h5>
+      {/* <form className="d-flex flex-column gap-3">
         <select className="form-select">
           <option>Specialisation</option>
         </select>
         <input type="text" placeholder="Location" className="form-control" />
         <input type="text" placeholder="Keyword" className="form-control" />
         <button type="submit" className="btn TGreen w-100">Search Jobs</button>
-      </form>
+      </form> */}
+      <PostYourResume/>
     </div>
   </div>
 </div>
@@ -302,35 +305,7 @@ function Home() {
                   <h5 className="TGreen text-white text-center py-2">
                     Post Your Requirement
                   </h5>
-                  <form>
-                    <input
-                      type="text"
-                      placeholder="Enter Your Name"
-                      className="form-control my-2"
-                    />
-                    <input
-                      type="email"
-                      placeholder="Enter Your Email Address"
-                      className="form-control my-2"
-                    />
-                    <input
-                      type="text"
-                      placeholder="+91 0000000000"
-                      className="form-control my-2"
-                    />
-                    <textarea
-                      placeholder="Comment"
-                      className="form-control my-2"
-                      rows="2"
-                    ></textarea>
-
-                    <div className="d-flex justify-content-between mt-3">
-                      <button className="btn TGreen">Submit</button>
-                      <button type="reset" className="btn btn-outline-success ">
-                        Reset
-                      </button>
-                    </div>
-                  </form>
+                  <PostYourRequirement/>
                 </div>
               </div>
 
@@ -340,84 +315,9 @@ function Home() {
                   <h5 className="TGreen text-white text-center py-2">
                     Current Openings
                   </h5>
+                  <CurrentOpenings/>
 
-                  <div className="scroll-box text-black mt-3">
-                    <div className="scroll-content">
-                      <div className="scroll-inner">
-                        {/* ✅ Original Content */}
-                        <div className="my-3">
-                          <p>
-                            <strong>Experience:</strong> 2-4 Years
-                          </p>
-                          <p>
-                            <strong>Location:</strong> Noida
-                          </p>
-                          <hr />
-                        </div>
-
-                        <div className="my-3">
-                          <p>
-                            <strong>Designation:</strong> SEO Executive
-                          </p>
-                          <p>
-                            <strong>Experience:</strong> 1-2 Years
-                          </p>
-                          <p>
-                            <strong>Location:</strong> Noida
-                          </p>
-                          <hr />
-                        </div>
-
-                        <div className="my-3">
-                          <p>
-                            <strong>Designation:</strong> Dot Net Developer
-                          </p>
-                          <p>
-                            <strong>Experience:</strong> 2-4 Years
-                          </p>
-                          <p>
-                            <strong>Location:</strong> Noida
-                          </p>
-                        </div>
-
-                        {/* ✅ Duplicate content for seamless loop */}
-                        <div className="my-3">
-                          <p>
-                            <strong>Experience:</strong> 2-4 Years
-                          </p>
-                          <p>
-                            <strong>Location:</strong> Noida
-                          </p>
-                          <hr />
-                        </div>
-
-                        <div className="my-3">
-                          <p>
-                            <strong>Designation:</strong> SEO Executive
-                          </p>
-                          <p>
-                            <strong>Experience:</strong> 1-2 Years
-                          </p>
-                          <p>
-                            <strong>Location:</strong> Noida
-                          </p>
-                          <hr />
-                        </div>
-
-                        <div className="my-3">
-                          <p>
-                            <strong>Designation:</strong> Dot Net Developer
-                          </p>
-                          <p>
-                            <strong>Experience:</strong> 2-4 Years
-                          </p>
-                          <p>
-                            <strong>Location:</strong> Noida
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                 
                 </div>
               </div>
 

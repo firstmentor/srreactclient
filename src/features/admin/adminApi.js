@@ -4,7 +4,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const adminApi = createApi({
   reducerPath: 'adminApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://srwebconsultancy.in/api', // 🔁 LIVE URL
+    // baseUrl: 'https://srwebconsultancy.in/api', // 🔁 LIVE URL
+    baseUrl:'https://server-y0fc.onrender.com/api',
     credentials: 'include', // ✅ cookies भेजने के लिए जरूरी
   }),
   tagTypes: ['Admin'],
@@ -26,6 +27,13 @@ export const adminApi = createApi({
       query: () => '/admin/dashboard',
       providesTags: ['Admin'],
     }),
+    getAdminProfile: builder.query({
+      query: () => '/admin/profile',
+      providesTags: ['Admin'],
+    }),
+    getAdminStats: builder.query({
+      query: () => '/admin/stats',
+    }),
   }),
 });
 
@@ -33,4 +41,6 @@ export const {
   useAdminLoginMutation,
   useAdminLogoutMutation,
   useGetAdminDashboardQuery,
+  useGetAdminProfileQuery,
+  useGetAdminStatsQuery
 } = adminApi;

@@ -1,29 +1,30 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import ScrollToTop from './component/ScrollToTop';
-import { ToastContainer } from 'react-toastify'; // ✅ Toast Import
-import 'react-toastify/dist/ReactToastify.css';  // ✅ Toast CSS
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import ScrollToTop from "./component/ScrollToTop";
+import { ToastContainer } from "react-toastify"; // ✅ Toast Import
+import "react-toastify/dist/ReactToastify.css"; // ✅ Toast CSS
 
 // Layouts
-import MainLayout from './component/MainLayout';
-import AdminLayout from './component/admin/AdminLayout';
+import MainLayout from "./component/MainLayout";
+import AdminLayout from "./component/admin/AdminLayout";
 
 // Pages
-import Home from './component/Home';
-import About from './component/About';
-import Services from './component/Services';
-import Contact from './component/Contact';
-import FAQ from './component/FAQ';
-import Privacypolicy from './component/Privacypolicy';
-import Client from './component/Client';
-import Candidate from './component/Candidate';
-import CVForm from './component/CVForm';
-import AdminDashboard from './component/admin/AdminDashboard';
-import ManageJobs from './component/admin/ManageJobs';
-import AdminrResume from './component/admin/AdminrResume';
-import AdminPrivateRoute from './component/admin/AdminPrivateRoute';
-import AdminLogin from './component/admin/AdminLogin';
-
+import Home from "./component/Home";
+import About from "./component/About";
+import Services from "./component/Services";
+import Contact from "./component/Contact";
+import FAQ from "./component/FAQ";
+import Privacypolicy from "./component/Privacypolicy";
+import Client from "./component/Client";
+import Candidate from "./component/Candidate";
+import CVForm from "./component/CVForm";
+import AdminDashboard from "./component/admin/AdminDashboard";
+import ManageJobs from "./component/admin/ManageJobs";
+import AdminrResume from "./component/admin/AdminrResume";
+import AdminPrivateRoute from "./component/admin/AdminPrivateRoute";
+import AdminLogin from "./component/admin/AdminLogin";
+import AdminRequirementList from "./component/admin/AdminRequirementList";
+import AdminJobManager from "./component/admin/AdminJobManager";
 
 const App = () => {
   return (
@@ -42,13 +43,21 @@ const App = () => {
           <Route path="/cvform" element={<CVForm />} />
         </Route>
 
+        <Route path="/login" element={<AdminLogin />} />
 
-        <Route path="/admin/login" element={<AdminLogin />} />
-
-        <Route element={<AdminPrivateRoute><AdminLayout /></AdminPrivateRoute>}>
+        <Route
+          element={
+            <AdminPrivateRoute>
+              <AdminLayout />
+            </AdminPrivateRoute>
+          }
+        >
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/jobs" element={<ManageJobs />} />
           <Route path="/admin/resume" element={<AdminrResume />} />
+          <Route path="/admin/requirement" element={<AdminRequirementList />} />
+          <Route path="/admin/job" element={<AdminJobManager />} />
+
         </Route>
       </Routes>
 

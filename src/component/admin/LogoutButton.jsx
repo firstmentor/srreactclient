@@ -11,7 +11,7 @@ const LogoutButton = () => {
     try {
       await logout().unwrap(); // RTK mutation
       toast.success('✅ Logged out successfully');
-      navigate('/admin/login');
+      navigate('/login');
     } catch (err) {
       toast.error('❌ Logout failed');
     }

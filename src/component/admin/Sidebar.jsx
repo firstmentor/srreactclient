@@ -47,8 +47,8 @@ const Sidebar = () => {
           </button>
           {openMenu === 'openings' && (
             <ul className="list-unstyled ps-3 overflow-hidden animate__animated animate__fadeIn">
-              <li><Link to="/admin/jobs/add" className="nav-link text-white small ps-4 py-1">➕ Add Job</Link></li>
-              <li><Link to="/admin/jobs" className="nav-link text-white small ps-4 py-1">📋 Display Jobs</Link></li>
+              <li><Link to="/admin/job" className="nav-link text-white small ps-4 py-1">➕ Add Job</Link></li>
+              <li><Link to="/admin/job" className="nav-link text-white small ps-4 py-1">📋 Display Jobs</Link></li>
             </ul>
           )}
         </li>
