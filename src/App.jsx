@@ -25,6 +25,7 @@ import AdminPrivateRoute from "./component/admin/AdminPrivateRoute";
 import AdminLogin from "./component/admin/AdminLogin";
 import AdminRequirementList from "./component/admin/AdminRequirementList";
 import AdminJobManager from "./component/admin/AdminJobManager";
+import AdminCategory from "./component/admin/AdminCategory";
 
 const App = () => {
   return (
@@ -57,6 +58,9 @@ const App = () => {
           <Route path="/admin/resume" element={<AdminrResume />} />
           <Route path="/admin/requirement" element={<AdminRequirementList />} />
           <Route path="/admin/job" element={<AdminJobManager />} />
+          <Route path="/admin/categories" element={<AdminCategory />} />
+
+         
 
         </Route>
       </Routes>

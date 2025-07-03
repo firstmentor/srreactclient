@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import * as XLSX from 'xlsx';
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 
 import {
   useGetApplicationsQuery,
@@ -23,7 +24,6 @@ function AdminrResume() {
   const [currentPage, setCurrentPage] = useState(1);
   const perPage = 5;
 
-  // ✅ Filtered and searched data
   const filteredData = applications.filter(app => {
     const matchSearch =
       app.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -44,7 +44,7 @@ function AdminrResume() {
       Email: app.email,
       Phone: app.phone,
       Designation: app.designation,
-      Resume: `https://server-y0fc.onrender.com${app.resumeUrl}`,
+      Resume: app.resumeUrl,
       Status: app.status || '',
       Comment: app.comment || '',
       Date: new Date(app.createdAt).toLocaleString(),
@@ -59,25 +59,31 @@ function AdminrResume() {
   const handleExportPDF = () => {
     const doc = new jsPDF();
     doc.text("Applications Report", 14, 15);
+
     const tableData = filteredData.map((app, i) => [
       i + 1,
       app.name,
       app.email,
       app.phone,
       app.designation,
-      `https://server-y0fc.onrender.com${app.resumeUrl}`,
+      app.resumeUrl,
       app.status || '',
       app.comment || '',
       new Date(app.createdAt).toLocaleString()
     ]);
-    doc.autoTable({
+
+    autoTable(doc,{
       head: [["#", "Name", "Email", "Phone", "Designation", "Resume", "Status", "Comment", "Applied On"]],
       body: tableData,
       startY: 20,
       styles: { fontSize: 7 },
     });
+
     doc.save("applications.pdf");
   };
+
+ 
+  
 
   const handleUpdate = async (id) => {
     const status = statusMap[id];
@@ -173,14 +179,21 @@ function AdminrResume() {
                       <td>{app.email}</td>
                       <td>{app.phone}</td>
                       <td>{app.designation}</td>
-                      <td>
+                      <td className="d-flex gap-2">
                         <a
-                          href={`https://server-y0fc.onrender.com${app.resumeUrl}`}
+                          href={`https://docs.google.com/viewer?url=${encodeURIComponent(app.resumeUrl)}&embedded=true`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="btn btn-sm btn-primary"
                         >
                           View
+                        </a>
+                        <a
+                          href={app.resumeUrl}
+                          download
+                          className="btn btn-sm btn-outline-dark"
+                        >
+                          Download
                         </a>
                       </td>
                       <td>
@@ -238,9 +251,7 @@ function AdminrResume() {
               <button
                 key={page}
                 onClick={() => handlePageChange(page)}
-                className={`btn mx-1 ${
-                  currentPage === page ? 'btn-success' : 'btn-outline-secondary'
-                }`}
+                className={`btn mx-1 ${currentPage === page ? 'btn-success' : 'btn-outline-secondary'}`}
               >
                 {page}
               </button>

@@ -1,9 +1,11 @@
 // src/features/job/jobOpeningsApi.js
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { baseQuery } from '../../app/apiConfig';
+
 
 export const jobOpeningsApi = createApi({
   reducerPath: 'jobOpeningsApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://server-y0fc.onrender.com/api' }),
+  baseQuery,
   tagTypes: ['Job'],
   endpoints: (builder) => ({
     getAllJobs: builder.query({

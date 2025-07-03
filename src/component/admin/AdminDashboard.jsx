@@ -4,13 +4,12 @@ import {
   useGetAdminProfileQuery,
   useGetAdminStatsQuery,
 } from "../../features/admin/adminApi";
-import { useGetAllRequirementsQuery } from '../../features/job/requirementApi';
+import { useGetAllRequirementsQuery } from "../../features/job/requirementApi";
 
-
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
-import * as XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 
 const AdminDashboard = () => {
   const {
@@ -25,27 +24,26 @@ const AdminDashboard = () => {
     isLoading: profileLoading,
   } = useGetAdminProfileQuery();
 
-
   const {
     data: statsData,
     error: statsError,
     isLoading: statsLoading,
   } = useGetAdminStatsQuery();
-  
+
   const {
     data: requirementData,
     error: requirementError,
     isLoading: requirementLoading,
   } = useGetAllRequirementsQuery();
-  
+
   const requirements = requirementData?.data || [];
 
   const admin = profileData?.admin;
   const applications = applicationData?.data || [];
 
   // 🔍 Search / Sort / Pagination
-  const [search, setSearch] = useState('');
-  const [sortByDate, setSortByDate] = useState('desc');
+  const [search, setSearch] = useState("");
+  const [sortByDate, setSortByDate] = useState("desc");
   const [currentPage, setCurrentPage] = useState(1);
   const perPage = 5;
 
@@ -56,7 +54,7 @@ const AdminDashboard = () => {
   );
 
   const sorted = filtered.sort((a, b) =>
-    sortByDate === 'asc'
+    sortByDate === "asc"
       ? new Date(a.createdAt) - new Date(b.createdAt)
       : new Date(b.createdAt) - new Date(a.createdAt)
   );
@@ -78,26 +76,29 @@ const AdminDashboard = () => {
       new Date(app.createdAt).toLocaleString(),
     ]);
     autoTable(doc, {
-      head: [['#', 'Name', 'Email', 'Phone', 'Designation', 'Applied On']],
+      head: [["#", "Name", "Email", "Phone", "Designation", "Applied On"]],
       body: rows,
     });
-    doc.save('Applications.pdf');
+    doc.save("Applications.pdf");
   };
 
   const exportToExcel = () => {
     const data = sorted.map((app, index) => ({
-      '#': index + 1,
+      "#": index + 1,
       Name: app.name,
       Email: app.email,
       Phone: app.phone,
       Designation: app.designation,
-      'Applied On': new Date(app.createdAt).toLocaleString(),
+      "Applied On": new Date(app.createdAt).toLocaleString(),
     }));
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Applications');
-    const buffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Applications.xlsx');
+    XLSX.utils.book_append_sheet(wb, ws, "Applications");
+    const buffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    saveAs(
+      new Blob([buffer], { type: "application/octet-stream" }),
+      "Applications.xlsx"
+    );
   };
 
   if (applicationLoading || profileLoading || statsLoading)
@@ -149,12 +150,16 @@ const AdminDashboard = () => {
         <div className="d-flex gap-2">
           <button
             className="btn btn-secondary"
-            onClick={() => setSortByDate(sortByDate === 'asc' ? 'desc' : 'asc')}
+            onClick={() => setSortByDate(sortByDate === "asc" ? "desc" : "asc")}
           >
-            Sort: {sortByDate === 'asc' ? 'Oldest' : 'Newest'}
+            Sort: {sortByDate === "asc" ? "Oldest" : "Newest"}
           </button>
-          <button onClick={exportToExcel} className="btn btn-success">📤 Excel</button>
-          <button onClick={exportToPDF} className="btn btn-danger">📄 PDF</button>
+          <button onClick={exportToExcel} className="btn btn-success">
+            📤 Excel
+          </button>
+          <button onClick={exportToPDF} className="btn btn-danger">
+            📄 PDF
+          </button>
         </div>
       </div>
 
@@ -183,14 +188,24 @@ const AdminDashboard = () => {
                     <td>{app.email}</td>
                     <td>{app.phone}</td>
                     <td>{app.designation}</td>
-                    <td>
+                    <td className="d-flex gap-2">
                       <a
-                        href={`https://server-y0fc.onrender.com${app.resumeUrl}`}
+                        href={`https://docs.google.com/viewer?url=${encodeURIComponent(
+                          app.resumeUrl
+                        )}&embedded=true`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn btn-sm btn-primary"
                       >
-                        View PDF
+                        View
+                      </a>
+
+                      <a
+                        href={app.resumeUrl}
+                        download
+                        className="btn btn-sm btn-outline-dark"
+                      >
+                        Download
                       </a>
                     </td>
                     <td>{new Date(app.createdAt).toLocaleString()}</td>
@@ -206,7 +221,9 @@ const AdminDashboard = () => {
               <button
                 key={page}
                 onClick={() => setCurrentPage(page)}
-                className={`btn mx-1 ${currentPage === page ? "btn-success" : "btn-outline-secondary"}`}
+                className={`btn mx-1 ${
+                  currentPage === page ? "btn-success" : "btn-outline-secondary"
+                }`}
               >
                 {page}
               </button>

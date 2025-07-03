@@ -1,11 +1,12 @@
 // src/features/requirement/requirementApi.js
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { baseQuery } from '../../app/apiConfig';
+
 
 export const requirementApi = createApi({
   reducerPath: 'requirementApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://server-y0fc.onrender.com/api', // 🔁 Change for live
-  }),
+  baseQuery,
+ 
   endpoints: (builder) => ({
     submitRequirement: builder.mutation({
       query: (data) => ({

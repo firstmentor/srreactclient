@@ -6,6 +6,7 @@ import { useSubmitRequirementMutation } from '../features/job/requirementApi';
 function PostYourRequirement() {
   const [form, setForm] = useState({
     name: '',
+    businessName:'',
     email: '',
     phone: '',
     message: '',
@@ -20,7 +21,7 @@ function PostYourRequirement() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.phone || !form.message) {
+    if (!form.name || !form.businessName || !form.email || !form.phone || !form.message) {
       toast.error("❌ All fields are required");
       return;
     }
@@ -28,7 +29,7 @@ function PostYourRequirement() {
     try {
       await submitRequirement(form).unwrap();
       toast.success("✅ Requirement submitted!");
-      setForm({ name: '', email: '', phone: '', message: '' });
+      setForm({ name: '',businessName: '', email: '', phone: '', message: '' });
     } catch (error) {
       toast.error('❌ ' + (error.data?.message || 'Something went wrong'));
       console.error(error);
@@ -42,6 +43,14 @@ function PostYourRequirement() {
         name="name"
         value={form.name}
         placeholder="Enter Your Name"
+        className="form-control my-2"
+        onChange={handleChange}
+      />
+      <input
+        type="text"
+        name="businessName"
+        value={form.businessName}
+        placeholder="Enter Your Business Name"
         className="form-control my-2"
         onChange={handleChange}
       />
@@ -64,7 +73,7 @@ function PostYourRequirement() {
       <textarea
         name="message"
         value={form.message}
-        placeholder="Comment"
+        placeholder="Message"
         className="form-control my-2"
         rows="2"
         onChange={handleChange}

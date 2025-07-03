@@ -11,6 +11,7 @@ import autoTable from 'jspdf-autotable'; // ✅ Correct import
 
 const AdminRequirementList = () => {
   const { data, isLoading, error } = useGetAllRequirementsQuery();
+  // console.log(data)
   const [deleteRequirement] = useDeleteRequirementMutation();
 
   const requirements = data?.data || [];
@@ -50,6 +51,7 @@ const AdminRequirementList = () => {
     const exportData = sorted.map((item, index) => ({
       '#': index + 1,
       Name: item.name,
+      BusinessName: item.businessName,
       Email: item.email,
       Phone: item.phone,
       Message: item.message,
@@ -78,15 +80,17 @@ const AdminRequirementList = () => {
       tableRows.push([
         index + 1,
         item.name,
+        item.businessName,
         item.email,
         item.phone,
         item.message,
+        
         new Date(item.createdAt).toLocaleString(),
       ]);
     });
 
     autoTable(doc, {
-      head: [['#', 'Name', 'Email', 'Phone', 'Message', 'Submitted On']],
+      head: [['#', 'Name','BusinessName', 'Email', 'Phone', 'Message', 'Submitted On']],
       body: tableRows,
     });
 
@@ -133,6 +137,9 @@ const AdminRequirementList = () => {
               <div className="card-body">
                 <h5 className="card-title">{item.name}</h5>
                 <p className="card-text">
+                <strong>Business Name:</strong>{' '}
+                  <a href={`mailto:${item.businessName}`}>{item.businessName}</a>
+                  <br />
                   <strong>Email:</strong>{' '}
                   <a href={`mailto:${item.email}`}>{item.email}</a>
                   <br />

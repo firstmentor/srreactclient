@@ -1,13 +1,11 @@
 // features/admin/adminApi.js
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { baseQuery } from '../../app/apiConfig';
+
 
 export const adminApi = createApi({
   reducerPath: 'adminApi',
-  baseQuery: fetchBaseQuery({
-    // baseUrl: 'https://srwebconsultancy.in/api', // 🔁 LIVE URL
-    baseUrl:'https://server-y0fc.onrender.com/api',
-    credentials: 'include', // ✅ cookies भेजने के लिए जरूरी
-  }),
+  baseQuery,
   tagTypes: ['Admin'],
   endpoints: (builder) => ({
     adminLogin: builder.mutation({
@@ -19,20 +17,20 @@ export const adminApi = createApi({
     }),
     adminLogout: builder.mutation({
       query: () => ({
-        url: '/admin/logout',
+        url: 'admin/logout',
         method: 'POST',
       }),
     }),
     getAdminDashboard: builder.query({
-      query: () => '/admin/dashboard',
+      query: () => 'admin/dashboard',
       providesTags: ['Admin'],
     }),
     getAdminProfile: builder.query({
-      query: () => '/admin/profile',
+      query: () => 'admin/profile',
       providesTags: ['Admin'],
     }),
     getAdminStats: builder.query({
-      query: () => '/admin/stats',
+      query: () => 'admin/stats',
     }),
   }),
 });

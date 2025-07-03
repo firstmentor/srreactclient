@@ -32,7 +32,7 @@ const Sidebar = () => {
           </button>
           {openMenu === 'categories' && (
             <ul className="list-unstyled ps-3 overflow-hidden animate__animated animate__fadeIn">
-              <li><Link to="/admin/categories/add" className="nav-link text-white small ps-4 py-1">➕ Add Category</Link></li>
+              <li><Link to="/admin/categories" className="nav-link text-white small ps-4 py-1">➕ Add Category</Link></li>
               <li><Link to="/admin/categories" className="nav-link text-white small ps-4 py-1">📋 Display Categories</Link></li>
             </ul>
           )}
