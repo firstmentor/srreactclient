@@ -1,136 +1,165 @@
-import React, { useRef, useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+import { useApplyJobMutation } from '../features/job/jobApi';
 
 function CVForm() {
-    const formRef = useRef();
-    const captchaRef = useRef();
+  const [applyJob, { isLoading }] = useApplyJobMutation();
 
-    const [statusMsg, setStatusMsg] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    designation: '',
+  });
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+  const [resume, setResume] = useState(null);
+  const [errors, setErrors] = useState({});
 
-        const token = captchaRef.current.getValue();
-        if (!token) {
-            return setStatusMsg('⚠️ Please complete the CAPTCHA.');
-        }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^[6-9]\d{9}$/;
 
-        const form = formRef.current;
-        const formData = new FormData(form);
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setErrors((prev) => ({ ...prev, [e.target.name]: '' }));
+  };
 
-        // ✅ Simulate successful submission
-        setStatusMsg('✅ Submitted successfully!');
-        form.reset();
-        captchaRef.current.reset();
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type !== 'application/pdf') {
+      toast.error('❌ Please upload PDF file only!');
+      e.target.value = '';
+      return;
+    }
+    setResume(file);
+    setErrors((prev) => ({ ...prev, resume: '' }));
+  };
 
-        setTimeout(() => setStatusMsg(''), 3000); // optional: hide message after 3s
-    };
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    let message = '';
+    if (!value.trim()) message = 'This field is required';
+    else if (name === 'email' && !emailRegex.test(value)) message = 'Invalid email format';
+    else if (name === 'phone' && !phoneRegex.test(value)) message = 'Phone must be 10 digits and start with 6-9';
+    setErrors((prev) => ({ ...prev, [name]: message }));
+  };
 
-    return (
-        <div className="container my-5 pt-5 ">
-            <div
-                className="shadow rounded-4 p-4 p-md-5 mx-auto bg-light"
-                style={{
-                    maxWidth: '900px',
-                    background: '#ffffff',
-                    border: '1px solid #dee2e6',
-                    boxShadow: '0 10px 25px rgba(0,0,0,0.08)',
-                }}
-            >
-                <h3
-                    className="mb-4 text-center text-TGreen pb-3"
-                    style={{ fontWeight: '600' }}
-                >
-                    UPLOAD YOUR CV
-                </h3>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { name, email, phone, designation } = formData;
 
-                {statusMsg && <div className="alert alert-info">{statusMsg}</div>}
+    let validationErrors = {};
+    if (!name.trim()) validationErrors.name = 'Name is required';
+    if (!emailRegex.test(email)) validationErrors.email = 'Invalid email format';
+    if (!phoneRegex.test(phone)) validationErrors.phone = 'Invalid phone number';
+    if (!designation.trim()) validationErrors.designation = 'Designation is required';
+    if (!resume) validationErrors.resume = 'Resume (PDF) is required';
 
-                <form ref={formRef} onSubmit={handleSubmit}>
-                    <div className="row g-4">
-                        <div className="col-md-6">
-                            <input
-                                name="name"
-                                type="text"
-                                className="form-control"
-                                placeholder="First Name *"
-                                required
-                            />
-                        </div>
-                        <div className="col-md-6">
-                            <input
-                                name="last"
-                                type="text"
-                                className="form-control"
-                                placeholder="Last Name *"
-                                required
-                            />
-                        </div>
-                        <div className="col-md-6">
-                            <input
-                                name="email"
-                                type="email"
-                                className="form-control"
-                                placeholder="Email Address *"
-                                required
-                            />
-                        </div>
-                        <div className="col-md-6">
-                            <input
-                                name="subject"
-                                type="text"
-                                className="form-control"
-                                placeholder="Subject *"
-                                required
-                            />
-                        </div>
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      toast.error('❌ Please fix validation errors');
+      return;
+    }
 
-                        <div className="col-12">
-                            <label
-                                className="form-label fw-semibold"
-                                style={{ color: '#495057' }}
-                            >
-                                Upload your CV *
-                            </label>
-                            <input
-                                name="cv"
-                                type="file"
-                                accept=".pdf,.doc,.docx"
-                                className="form-control"
-                                required
-                            />
-                        </div>
+    const form = new FormData();
+    form.append('name', name);
+    form.append('email', email);
+    form.append('phone', phone);
+    form.append('designation', designation);
+    form.append('resume', resume);
 
-                        <div className="col-12">
-                            <textarea
-                                name="message"
-                                rows="4"
-                                className="form-control"
-                                placeholder="Message"
-                            ></textarea>
-                        </div>
+    try {
+      await applyJob(form).unwrap();
+      toast.success('✅ Application submitted successfully!');
+      setFormData({ name: '', email: '', phone: '', designation: '' });
+      setResume(null);
+      setErrors({});
+      e.target.reset();
+    } catch (err) {
+      toast.error('❌ Submission failed!');
+      console.error(err);
+    }
+  };
 
-                        <div className="col-12 text-center">
-                            <ReCAPTCHA
-                                ref={captchaRef}
-                                sitekey="6LfDsWsrAAAAAIb2HDxrzmClQ0wdpoy3JeXpDKdm"
-                            />
-                        </div>
-
-                        <div className="col-12 text-center">
-                            <button
-                                type='submit'
-                                className="btn TGreen px-5 py-2"
-                                style={{ fontWeight: '500', fontSize: '16px' }}
-                            >
-                                Submit
-                            </button>
-                        </div>
-                    </div>
-                </form>
+  return (
+    <div className="container py-5 mt-5">
+      <div className="card p-4 shadow-sm border-0">
+        <h3 className="mb-4 text-center">📝 UPLOAD YOUR CV</h3>
+        <form onSubmit={handleSubmit}>
+          <div className="row g-3">
+            <div className="col-md-6">
+              <input
+                name="name"
+                type="text"
+                className={`form-control ${errors.name ? 'is-invalid' : ''}`}
+                placeholder="Name"
+                value={formData.name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              {errors.name && <div className="invalid-feedback">{errors.name}</div>}
             </div>
-        </div>
-    );
+
+            <div className="col-md-6">
+              <input
+                name="email"
+                type="email"
+                className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              {errors.email && <div className="invalid-feedback">{errors.email}</div>}
+            </div>
+
+            <div className="col-md-6">
+              <input
+                name="phone"
+                type="text"
+                className={`form-control ${errors.phone ? 'is-invalid' : ''}`}
+                placeholder="Phone Number"
+                value={formData.phone}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              {errors.phone && <div className="invalid-feedback">{errors.phone}</div>}
+            </div>
+
+            <div className="col-md-6">
+              <input
+                name="designation"
+                type="text"
+                className={`form-control ${errors.designation ? 'is-invalid' : ''}`}
+                placeholder="Designation"
+                value={formData.designation}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              {errors.designation && <div className="invalid-feedback">{errors.designation}</div>}
+            </div>
+
+            <div className="col-md-12">
+              <label className="form-label">Upload Resume (PDF only)</label>
+              <input
+                name="resume"
+                type="file"
+                accept=".pdf"
+                className={`form-control ${errors.resume ? 'is-invalid' : ''}`}
+                onChange={handleFileChange}
+              />
+              {errors.resume && <div className="invalid-feedback">{errors.resume}</div>}
+            </div>
+
+            <div className="col-12 text-center">
+              <button type="submit" className="btn btn-primary px-5" disabled={isLoading}>
+                {isLoading ? 'Submitting...' : 'Submit'}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 }
 
 export default CVForm;
