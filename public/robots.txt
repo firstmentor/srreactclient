@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Optional: Block admin panel from indexing
+Disallow: /admin/
+
+# Point to your sitemap
+Sitemap: https://srwebconsultancy.in/sitemap.xml

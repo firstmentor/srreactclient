@@ -1,5 +1,10 @@
  /* App.css ya index.css me add karein */
 /* index.css or global.css */
+body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
 html {
   scroll-behavior: smooth;
 }
@@ -133,3 +138,27 @@ body, html {
 
 
 
+
+
+ .floating-whatsapp {
+  position: fixed;
+  bottom: 20px;
+  right: 20px; /* you can set left: 20px if you want bottom-left */
+  background-color: #25d366;
+  color: white;
+  font-size: 28px;
+  padding: 16px;
+  border-radius: 50%;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.floating-whatsapp:hover {
+  background-color: #1ebe5d;
+  transform: scale(1.1);
+}

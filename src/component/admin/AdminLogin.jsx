@@ -40,39 +40,49 @@ function AdminLogin() {
 
   return (
     <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: '90vh' }}>
-      <div className="card shadow p-4" style={{ maxWidth: '400px', width: '100%' }}>
-        <h3 className="text-center mb-4">🔐 Admin Login</h3>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label>Email</label>
-            <input
-              type="email"
-              className={`form-control ${errors.email ? 'is-invalid' : ''}`}
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              placeholder="Enter admin email"
-            />
-            {errors.email && <div className="invalid-feedback">{errors.email}</div>}
-          </div>
+  <div className="card shadow p-4" style={{ maxWidth: '400px', width: '100%' }}>
+    <h3 className="text-center mb-4">🔐 Admin Login</h3>
 
-          <div className="mb-3">
-            <label>Password</label>
-            <input
-              type="password"
-              className={`form-control ${errors.password ? 'is-invalid' : ''}`}
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
-              placeholder="Enter password"
-            />
-            {errors.password && <div className="invalid-feedback">{errors.password}</div>}
-          </div>
-
-          <button type="submit" className="btn btn-primary w-100" disabled={isLoading}>
-            {isLoading ? '🔄 Logging in...' : '🔓 Login'}
-          </button>
-        </form>
+    <form onSubmit={handleSubmit}>
+      <div className="mb-3">
+        <label>Email</label>
+        <input
+          type="email"
+          className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+          value={form.email}
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+          placeholder="Enter admin email"
+        />
+        {errors.email && <div className="invalid-feedback">{errors.email}</div>}
       </div>
-    </div>
+
+      <div className="mb-3">
+        <label>Password</label>
+        <input
+          type="password"
+          className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+          value={form.password}
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
+          placeholder="Enter password"
+        />
+        {errors.password && <div className="invalid-feedback">{errors.password}</div>}
+      </div>
+
+      {/* ✅ Forgot Password Link */}
+      <div className="mb-3 text-end">
+        <a href="/admin/forgot-password" className="text-primary" style={{ fontSize: '14px' }}>
+          Forgot Password?
+        </a>
+      </div>
+
+      <button type="submit" className="btn btn-primary w-100" disabled={isLoading}>
+        {isLoading ? '🔄 Logging in...' : '🔓 Login'}
+      </button>
+    </form>
+  </div>
+</div>
+
+  
   );
 }
 

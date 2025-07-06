@@ -32,6 +32,31 @@ export const adminApi = createApi({
     getAdminStats: builder.query({
       query: () => 'admin/stats',
     }),
+    changeAdminPassword: builder.mutation({
+      query: (data) => ({
+        url: "admin/change-password",
+        method: "PUT",
+        body: data,
+      }),
+    }),
+    // Forgot password request
+    forgotAdminPassword: builder.mutation({
+      query: (email) => ({
+        url: "/admin/forgot-password",
+        method: "POST",
+        body: { email },
+      }),
+    }),
+
+    // Reset password using token
+    resetAdminPassword: builder.mutation({
+      query: ({ token, newPassword }) => ({
+        url: `/admin/reset-password`,
+        method: "POST",
+        body: { token, newPassword },
+      }),
+    }),
+
   }),
 });
 
@@ -40,5 +65,8 @@ export const {
   useAdminLogoutMutation,
   useGetAdminDashboardQuery,
   useGetAdminProfileQuery,
-  useGetAdminStatsQuery
+  useGetAdminStatsQuery,
+  useChangeAdminPasswordMutation,
+  useForgotAdminPasswordMutation,
+  useResetAdminPasswordMutation,
 } = adminApi;

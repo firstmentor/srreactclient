@@ -1,4 +1,5 @@
 import React from "react";
+import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import ScrollToTop from "./component/ScrollToTop";
 import { ToastContainer } from "react-toastify"; // ✅ Toast Import
@@ -7,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css"; // ✅ Toast CSS
 // Layouts
 import MainLayout from "./component/MainLayout";
 import AdminLayout from "./component/admin/AdminLayout";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 // Pages
 import Home from "./component/Home";
@@ -27,6 +29,10 @@ import AdminRequirementList from "./component/admin/AdminRequirementList";
 import AdminJobManager from "./component/admin/AdminJobManager";
 import AdminCategory from "./component/admin/AdminCategory";
 import AdminContact from "./component/admin/AdminContact";
+import AdminChangePassword from "./component/admin/AdminChangePassword";
+import FloatingWhatsApp from "./component/FloatingWhatsApp";
+import ResetPassword from "./component/admin/ResetPassword";
+import ForgotPassword from "./component/admin/ForgotPassword";
 
 const App = () => {
   return (
@@ -45,7 +51,12 @@ const App = () => {
           <Route path="/cvform" element={<CVForm />} />
         </Route>
 
-        <Route path="/login" element={<AdminLogin />} />
+        <Route path="/srlogin" element={<AdminLogin />} />
+        <Route path="/admin/forgot-password" element={<ForgotPassword />} />
+        <Route
+          path="/admin/reset-password/:token"
+          element={<ResetPassword />}
+        />
 
         <Route
           element={
@@ -61,17 +72,16 @@ const App = () => {
           <Route path="/admin/job" element={<AdminJobManager />} />
           <Route path="/admin/categories" element={<AdminCategory />} />
           <Route path="/admin/contact" element={<AdminContact />} />
-
-
-         
-
-         
-
+          <Route
+            path="/admin/changePassword"
+            element={<AdminChangePassword />}
+          />
         </Route>
       </Routes>
 
       {/* ✅ Toast Container added here */}
       <ToastContainer position="top-right" autoClose={2000} />
+      <FloatingWhatsApp />
     </>
   );
 };

@@ -67,6 +67,12 @@ const Sidebar = () => {
             <i className="fas fa-envelope me-2"></i> Contact
           </Link>
         </li>
+
+        <li className="nav-item mb-2">
+          <Link to="/admin/changePassword" className="nav-link text-white fw-semibold">
+            <i className="fas fa-envelope me-2"></i> Change Password
+          </Link>
+        </li>
         <li className="nav-item mt-3 border-top pt-3">
           <Link to="/logout" className="nav-link text-white fw-semibold">
            <LogoutButton /> 

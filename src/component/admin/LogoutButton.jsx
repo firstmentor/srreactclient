@@ -22,7 +22,7 @@ const LogoutButton = () => {
       onClick={handleLogout}
       className="nav-link text-white fw-semibold bg-transparent border-0 w-100 text-start"
     >
-      <i className="fas fa-sign-out-alt me-2"></i> Logout1233
+      <i className="fas fa-sign-out-alt me-2"></i> Logout
     </button>
   );
 };
