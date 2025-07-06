@@ -28,17 +28,16 @@ import CurrentOpenings from "./ CurrentOpenings";
 import Category from "./Category";
 import { Helmet } from 'react-helmet';
 
-
 function Home() {
   return (
     <>
     <Helmet>
-        <title>{job.title} – Apply Now | SR Web Consultancy</title>
-        <meta name="description" content={job.summary.substring(0, 150)} />
-        <meta property="og:title" content={job.title} />
-        <meta property="og:description" content={job.summary} />
-        <meta property="og:url" content={`https://srwebconsultancy.in`} />
-      </Helmet>
+  <title>Best Job Consultancy in India | SR Web Consultancy</title>
+  <meta name="description" content="Find IT job openings, internships, and career opportunities with SR Web Consultancy." />
+  <meta name="keywords" content="IT jobs, job consultancy, internships, SR Web Consultancy, job openings" />
+  <meta property="og:url" content="https://srwebconsultancy.in" />
+</Helmet>
+
     <div style={{ position: 'relative', width: '100%', minHeight: '100vh', overflow: 'hidden' }}>
   {/* ✅ Fullscreen Video */}
   <video

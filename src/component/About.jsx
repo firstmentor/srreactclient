@@ -2,10 +2,15 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import '../index.css'
 import aboutImage from '/src/assets/images/about/about.jpg';
+import { Helmet } from 'react-helmet';
 
 function About() {
     return (
         <>
+        <Helmet>
+  <title>About Us | SR Web Consultancy</title>
+  <meta name="description" content="Learn more about SR Web Consultancy and our mission to provide the best job solutions." />
+</Helmet>
             {/* <!-- Start home --> */}
             <section className="page-title-box">
                 <div className="container">

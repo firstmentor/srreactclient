@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import React, { useState } from 'react';
 import { useCreateContactMutation } from '../features/contact/contactApi';
 import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet';
+
 
 function Contact() {
     const [createContact] = useCreateContactMutation();
@@ -34,6 +36,10 @@ function Contact() {
   };
   return (
     <>
+    <Helmet>
+  <title>Contact Us | SR Web Consultancy</title>
+  <meta name="description" content="Get in touch with SR Web Consultancy for job assistance and career guidance." />
+</Helmet>
       {/* <!-- Start home --> */}
       <section className="page-title-box">
         <div className="container">
