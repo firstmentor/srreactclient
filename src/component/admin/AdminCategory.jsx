@@ -16,13 +16,21 @@ function AdminCategory() {
   const [updateCategory] = useUpdateCategoryMutation();
   const [deleteCategory] = useDeleteCategoryMutation();
 
-  const [formData, setFormData] = useState({ title: '', image: null });
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    image: null,
+  });
   const [editingId, setEditingId] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
+  // New states for "Read More" description modal
+  const [descModal, setDescModal] = useState(false);
+  const [selectedDescription, setSelectedDescription] = useState('');
+
   const handleClose = () => {
     setShowModal(false);
-    setFormData({ title: '', image: null });
+    setFormData({ title: '', description: '', image: null });
     setEditingId(null);
   };
 
@@ -30,12 +38,13 @@ function AdminCategory() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.title || (!editingId && !formData.image)) {
+    if (!formData.title || !formData.description || (!editingId && !formData.image)) {
       return toast.error('All fields are required');
     }
 
     const fd = new FormData();
     fd.append('title', formData.title);
+    fd.append('description', formData.description);
     if (formData.image) fd.append('image', formData.image);
 
     try {
@@ -53,7 +62,11 @@ function AdminCategory() {
   };
 
   const handleEdit = (cat) => {
-    setFormData({ title: cat.title, image: null });
+    setFormData({
+      title: cat.title,
+      description: cat.description || '',
+      image: null,
+    });
     setEditingId(cat._id);
     handleShow();
   };
@@ -89,6 +102,27 @@ function AdminCategory() {
       name: 'Title',
       selector: (row) => row.title,
       sortable: true,
+    },
+    {
+      name: 'Description',
+      cell: (row) => (
+        <>
+          <span>
+            {row.description?.slice(0, 40)}...
+            <button
+              className="btn btn-link btn-sm p-0 ms-1"
+              onClick={() => {
+                setSelectedDescription(row.description);
+                setDescModal(true);
+              }}
+            >
+              Read More
+            </button>
+          </span>
+        </>
+      ),
+      sortable: false,
+      grow: 2,
     },
     {
       name: 'Jobs Count',
@@ -130,7 +164,7 @@ function AdminCategory() {
         noDataComponent="No categories found"
       />
 
-      {/* Modal */}
+      {/* Add/Edit Category Modal */}
       <Modal show={showModal} onHide={handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>{editingId ? 'Edit' : 'Add'} Category</Modal.Title>
@@ -144,6 +178,15 @@ function AdminCategory() {
                 className="form-control"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Description</label>
+              <textarea
+                className="form-control"
+                value={formData.description}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                rows={3}
               />
             </div>
             <div className="mb-3">
@@ -164,6 +207,21 @@ function AdminCategory() {
             </Button>
           </Modal.Footer>
         </form>
+      </Modal>
+
+      {/* Description "Read More" Modal */}
+      <Modal show={descModal} onHide={() => setDescModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Category Description</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>{selectedDescription}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setDescModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
       </Modal>
     </div>
   );

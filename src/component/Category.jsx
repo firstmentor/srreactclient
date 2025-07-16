@@ -1,16 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import "../index.css";
 import { useGetCategoriesQuery } from '../features/category/categoryApi';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 function Category() {
   const { data, isLoading, isError } = useGetCategoriesQuery();
   const categories = data?.data || [];
 
-  if (isError) return <p>Error loading categories.</p>;
+  const [showModal, setShowModal] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
-  // Dummy skeleton card array
+  const handleShow = (category) => {
+    setSelectedCategory(category);
+    setShowModal(true);
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
+    setSelectedCategory(null);
+  };
+
   const skeletonArray = new Array(8).fill(0);
+
+  if (isError) return <p>Error loading categories.</p>;
 
   return (
     <>
@@ -39,7 +53,11 @@ function Category() {
             ))
           : categories.map((item, index) => (
               <div className="col-lg-3 col-md-6 mt-4 pt-2" key={index}>
-                <div className="popu-category-box rounded text-center p-3 shadow-sm">
+                <div
+                  className="popu-category-box rounded text-center p-3 shadow-sm"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => handleShow(item)}
+                >
                   <div className="popu-category-icon icons-md mb-3">
                     <img
                       src={item.image?.url}
@@ -52,16 +70,14 @@ function Category() {
                     />
                   </div>
                   <div className="popu-category-content">
-                    <Link to='/' className="text-dark stretched-link">
-                      <h5 className="fs-18">{item.title}</h5>
-                    </Link>
+                    <h5 className="fs-18 text-dark">{item.title}</h5>
                   </div>
                 </div>
               </div>
             ))}
       </div>
 
-      {/* Browse Button */}
+      {/* Browse All Categories Button */}
       {!isLoading && (
         <div className="row">
           <div className="col-lg-12">
@@ -73,6 +89,32 @@ function Category() {
           </div>
         </div>
       )}
+
+      {/* Modal for Category Details */}
+      <Modal show={showModal} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Category Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedCategory && (
+            <div className="text-center">
+              <img
+                src={selectedCategory.image?.url}
+                alt={selectedCategory.title}
+                style={{ width: "120px", height: "100px", objectFit: "contain" }}
+                className="mb-3"
+              />
+              <h4>{selectedCategory.title}</h4>
+              <p className="text-muted">{selectedCategory.description || 'No description available'}</p>
+            </div>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

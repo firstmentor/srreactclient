@@ -21,7 +21,7 @@ function ResetPassword() {
 
       // ✅ Redirect after success (1-2 sec delay)
       setTimeout(() => {
-        navigate('/login'); // 👈 Login page par bhejna
+        navigate('/srlogin'); // 👈 Login page par bhejna
       }, 1500);
 
     } catch (err) {

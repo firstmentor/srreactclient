@@ -6,7 +6,7 @@ const AdminPrivateRoute = ({ children }) => {
   const { data, error, isLoading } = useGetAdminDashboardQuery();
 
   if (isLoading) return <p>⏳ Checking admin auth...</p>;
-  if (error) return <Navigate to="/login" />;
+  if (error) return <Navigate to="/srlogin" />;
 
   return children;
 };
